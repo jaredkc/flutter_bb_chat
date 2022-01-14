@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../data/message_dao.dart';
-import '../data/message.dart';
-import '../data/user_dao.dart';
+import '../services/message_service.dart';
+import '../models/message.dart';
+import '../services/auth_service.dart';
 import 'message_field.dart';
 import 'message_widget.dart';
 
@@ -22,8 +22,8 @@ class MessageListState extends State<MessageList> {
   Widget build(BuildContext context) {
     WidgetsBinding.instance!.addPostFrameCallback((_) => _scrollToBottom());
 
-    final messageDao = Provider.of<MessageDao>(context, listen: false);
-    final userDao = Provider.of<UserDao>(context, listen: false);
+    final messageDao = Provider.of<MessageService>(context, listen: false);
+    final authDao = Provider.of<AuthService>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -32,7 +32,7 @@ class MessageListState extends State<MessageList> {
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
-              userDao.logout();
+              authDao.logout();
             },
           ),
         ],
@@ -53,10 +53,10 @@ class MessageListState extends State<MessageList> {
     );
   }
 
-  Widget _getMessageList(MessageDao messageDao) {
+  Widget _getMessageList(MessageService messageDao) {
     return Expanded(
       child: StreamBuilder<QuerySnapshot>(
-          stream: messageDao.getMessageStream(),
+          stream: messageDao.streamMessages(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');

@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-import '../data/user_dao.dart';
+import '../services/auth_service.dart';
 
 class MessageWidget extends StatelessWidget {
+  const MessageWidget(this.message, this.date, this.email, {Key? key})
+      : super(key: key);
+
   final String message;
   final DateTime date;
   final String? email;
 
-  const MessageWidget(this.message, this.date, this.email, {Key? key})
-      : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final userDao = Provider.of<UserDao>(context, listen: false);
-    final myEmail = userDao.email();
+    final authDao = Provider.of<AuthService>(context, listen: false);
+    final myEmail = authDao.email();
 
     final isMe = email != null && email == myEmail;
 

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
-import '../data/message.dart';
-import '../data/message_dao.dart';
-import '../data/user_dao.dart';
+import '../models/message.dart';
+import '../services/message_service.dart';
+import '../services/auth_service.dart';
 
 class MessageField extends StatefulWidget {
   const MessageField({Key? key}) : super(key: key);
@@ -32,9 +32,9 @@ class _MessageFieldState extends State<MessageField> {
 
   @override
   Widget build(BuildContext context) {
-    final messageDao = Provider.of<MessageDao>(context, listen: false);
-    final userDao = Provider.of<UserDao>(context, listen: false);
-    email = userDao.email();
+    final messageDao = Provider.of<MessageService>(context, listen: false);
+    final authDao = Provider.of<AuthService>(context, listen: false);
+    email = authDao.email();
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -70,7 +70,7 @@ class _MessageFieldState extends State<MessageField> {
     );
   }
 
-  void _sendMessage(MessageDao messageDao) {
+  void _sendMessage(MessageService messageDao) {
     if (_canSendMessage()) {
       final message = Message(
         text: _messageController.text,

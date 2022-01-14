@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
-class UserDao extends ChangeNotifier {
+class AuthService extends ChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   bool isLoggedIn() {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../data/user_dao.dart';
+import '../services/auth_service.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -23,7 +23,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    final userDao = Provider.of<UserDao>(context, listen: false);
+    final authDao = Provider.of<AuthService>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(title: const Text('BB Chat Login')),
@@ -75,7 +75,7 @@ class _LoginState extends State<Login> {
                   child: ElevatedButton(
                     child: const Text('Login'),
                     onPressed: () {
-                      userDao.login(
+                      authDao.login(
                         _emailController.text,
                         _passwordController.text,
                       );
@@ -87,7 +87,7 @@ class _LoginState extends State<Login> {
                   child: ElevatedButton(
                     child: const Text('Sign up'),
                     onPressed: () {
-                      userDao.signup(
+                      authDao.signup(
                         _emailController.text,
                         _passwordController.text,
                       );

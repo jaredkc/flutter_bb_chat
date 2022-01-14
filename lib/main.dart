@@ -2,10 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../data/user_dao.dart';
-import 'data/message_dao.dart';
-import 'ui/login.dart';
-import 'ui/message_list.dart';
+import 'services/auth_service.dart';
+import 'services/message_service.dart';
+import 'auth/login.dart';
+import 'messages/message_list.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,22 +22,22 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<UserDao>(
+        ChangeNotifierProvider<AuthService>(
           lazy: false,
-          create: (_) => UserDao(),
+          create: (_) => AuthService(),
         ),
-        Provider<MessageDao>(
+        Provider<MessageService>(
           lazy: false,
-          create: (_) => MessageDao(),
+          create: (_) => MessageService(),
         )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'BB Chat',
         theme: ThemeData(primaryColor: const Color(0xFF191B2D)),
-        home: Consumer<UserDao>(
-          builder: (context, userDao, child) {
-            return userDao.isLoggedIn() ? const MessageList() : const Login();
+        home: Consumer<AuthService>(
+          builder: (context, user, child) {
+            return user.isLoggedIn() ? const MessageList() : const Login();
           },
         ),
       ),
