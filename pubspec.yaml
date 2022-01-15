@@ -1,5 +1,5 @@
 name: bbchat
-description: A reactive chat application fueled by a Firebase Realtime Database.
+description: A reactive chat application built with Firebase Auth and Firestore.
 publish_to: 'none'
 
 version: 1.0.0+1
