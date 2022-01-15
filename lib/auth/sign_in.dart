@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 import '../services/auth_service.dart';
 
 class SignIn extends StatefulWidget {
@@ -23,7 +23,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthService>(context, listen: false);
+    final auth = AuthService();
 
     return Scaffold(
       appBar: AppBar(title: const Text('BB Chat Sign In')),

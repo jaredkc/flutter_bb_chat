@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
 
 import '../models/message.dart';
 import '../services/message_service.dart';
@@ -66,8 +65,8 @@ class _MessageFieldState extends State<MessageField> {
   }
 
   void _sendMessage() {
-    final messages = Provider.of<MessageService>(context, listen: false);
-    final auth = Provider.of<AuthService>(context, listen: false);
+    final messages = MessageService();
+    final auth = AuthService();
 
     if (_canSendMessage()) {
       final message = Message(

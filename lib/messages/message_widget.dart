@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../services/auth_service.dart';
@@ -15,7 +14,7 @@ class MessageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final auth = Provider.of<AuthService>(context, listen: false);
+    final auth = AuthService();
     final myEmail = auth.email();
 
     final isMe = email != null && email == myEmail;

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../services/message_service.dart';
@@ -22,8 +21,8 @@ class MessageListState extends State<MessageList> {
   Widget build(BuildContext context) {
     WidgetsBinding.instance!.addPostFrameCallback((_) => _scrollToBottom());
 
-    final messages = Provider.of<MessageService>(context, listen: false);
-    final auth = Provider.of<AuthService>(context, listen: false);
+    final messages = MessageService();
+    final auth = AuthService();
 
     return Scaffold(
       appBar: AppBar(

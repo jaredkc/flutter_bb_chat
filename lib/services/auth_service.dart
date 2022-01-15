@@ -4,6 +4,9 @@ import 'package:flutter/foundation.dart';
 class AuthService extends ChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
+  // This could be used in main.dart to check if the user is logged in
+  // final Stream<User?> userStream = FirebaseAuth.instance.authStateChanges();
+
   bool isSignedIn() {
     return auth.currentUser != null;
   }
