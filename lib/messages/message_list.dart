@@ -22,17 +22,17 @@ class MessageListState extends State<MessageList> {
   Widget build(BuildContext context) {
     WidgetsBinding.instance!.addPostFrameCallback((_) => _scrollToBottom());
 
-    final messageDao = Provider.of<MessageService>(context, listen: false);
-    final authDao = Provider.of<AuthService>(context, listen: false);
+    final messages = Provider.of<MessageService>(context, listen: false);
+    final auth = Provider.of<AuthService>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('BBChat'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.logout),
+            icon: const Icon(Icons.login),
             onPressed: () {
-              authDao.logout();
+              auth.signOut();
             },
           ),
         ],
@@ -46,17 +46,17 @@ class MessageListState extends State<MessageList> {
       body: SafeArea(
         child: Column(
           children: [
-            _getMessageList(messageDao),
+            _getMessageList(messages),
           ],
         ),
       ),
     );
   }
 
-  Widget _getMessageList(MessageService messageDao) {
+  Widget _getMessageList(MessageService messages) {
     return Expanded(
       child: StreamBuilder<QuerySnapshot>(
-          stream: messageDao.streamMessages(),
+          stream: messages.streamMessages(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');

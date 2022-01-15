@@ -15,8 +15,8 @@ class MessageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final authDao = Provider.of<AuthService>(context, listen: false);
-    final myEmail = authDao.email();
+    final auth = Provider.of<AuthService>(context, listen: false);
+    final myEmail = auth.email();
 
     final isMe = email != null && email == myEmail;
 

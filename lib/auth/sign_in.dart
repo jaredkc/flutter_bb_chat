@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class SignIn extends StatefulWidget {
+  const SignIn({Key? key}) : super(key: key);
 
   @override
-  _LoginState createState() => _LoginState();
+  _SignInState createState() => _SignInState();
 }
 
-class _LoginState extends State<Login> {
+class _SignInState extends State<SignIn> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -23,10 +23,10 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    final authDao = Provider.of<AuthService>(context, listen: false);
+    final auth = Provider.of<AuthService>(context, listen: false);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('BB Chat Login')),
+      appBar: AppBar(title: const Text('BB Chat Sign In')),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -73,9 +73,9 @@ class _LoginState extends State<Login> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    child: const Text('Login'),
+                    child: const Text('Sign In'),
                     onPressed: () {
-                      authDao.login(
+                      auth.signInEmail(
                         _emailController.text,
                         _passwordController.text,
                       );
@@ -87,7 +87,7 @@ class _LoginState extends State<Login> {
                   child: ElevatedButton(
                     child: const Text('Sign up'),
                     onPressed: () {
-                      authDao.signup(
+                      auth.signUp(
                         _emailController.text,
                         _passwordController.text,
                       );

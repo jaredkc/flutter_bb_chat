@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'services/auth_service.dart';
 import 'services/message_service.dart';
-import 'auth/login.dart';
+import 'auth/sign_in.dart';
 import 'messages/message_list.dart';
 
 Future<void> main() async {
@@ -37,7 +37,7 @@ class App extends StatelessWidget {
         theme: ThemeData(primaryColor: const Color(0xFF191B2D)),
         home: Consumer<AuthService>(
           builder: (context, user, child) {
-            return user.isLoggedIn() ? const MessageList() : const Login();
+            return user.isSignedIn() ? const MessageList() : const SignIn();
           },
         ),
       ),

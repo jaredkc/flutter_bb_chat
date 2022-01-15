@@ -15,7 +15,6 @@ class MessageField extends StatefulWidget {
 
 class _MessageFieldState extends State<MessageField> {
   final TextEditingController _messageController = TextEditingController();
-  String? email;
   String? message;
 
   @override
@@ -32,10 +31,6 @@ class _MessageFieldState extends State<MessageField> {
 
   @override
   Widget build(BuildContext context) {
-    final messageDao = Provider.of<MessageService>(context, listen: false);
-    final authDao = Provider.of<AuthService>(context, listen: false);
-    email = authDao.email();
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -46,7 +41,7 @@ class _MessageFieldState extends State<MessageField> {
             controller: _messageController,
             autofocus: true,
             onSubmitted: (input) {
-              _sendMessage(messageDao);
+              _sendMessage();
             },
             decoration: const InputDecoration(
               hintText: 'Your message...',
@@ -61,7 +56,7 @@ class _MessageFieldState extends State<MessageField> {
           disabledColor: Colors.grey[400],
           onPressed: _canSendMessage()
               ? () {
-                  _sendMessage(messageDao);
+                  _sendMessage();
                 }
               : null,
         ),
@@ -70,14 +65,17 @@ class _MessageFieldState extends State<MessageField> {
     );
   }
 
-  void _sendMessage(MessageService messageDao) {
+  void _sendMessage() {
+    final messages = Provider.of<MessageService>(context, listen: false);
+    final auth = Provider.of<AuthService>(context, listen: false);
+
     if (_canSendMessage()) {
       final message = Message(
         text: _messageController.text,
         date: DateTime.now(),
-        email: email,
+        email: auth.email(),
       );
-      messageDao.saveMessage(message);
+      messages.saveMessage(message);
       _messageController.clear();
       setState(() {});
     }

@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 class AuthService extends ChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  bool isLoggedIn() {
+  bool isSignedIn() {
     return auth.currentUser != null;
   }
 
@@ -20,7 +20,7 @@ class AuthService extends ChangeNotifier {
     return auth.currentUser?.photoURL;
   }
 
-  void signup(String email, String password) async {
+  void signUp(String email, String password) async {
     try {
       await auth.createUserWithEmailAndPassword(
         email: email,
@@ -39,7 +39,7 @@ class AuthService extends ChangeNotifier {
     return null;
   }
 
-  void login(String email, String password) async {
+  void signInEmail(String email, String password) async {
     try {
       await auth.signInWithEmailAndPassword(
         email: email,
@@ -59,7 +59,7 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  void logout() async {
+  void signOut() async {
     await auth.signOut();
     notifyListeners();
   }
