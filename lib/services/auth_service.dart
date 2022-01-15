@@ -23,13 +23,12 @@ class AuthService extends ChangeNotifier {
     return auth.currentUser?.photoURL;
   }
 
-  void signUp(String email, String password) async {
+  Future<void> signUp(String email, String password) async {
     try {
       await auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-      notifyListeners();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -39,16 +38,14 @@ class AuthService extends ChangeNotifier {
     } catch (e) {
       print(e);
     }
-    return null;
   }
 
-  void signInEmail(String email, String password) async {
+  Future<void> signInEmail(String email, String password) async {
     try {
       await auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      notifyListeners();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'wrong-password') {
         print('The password is invalid or the user does not have a password.');
@@ -62,8 +59,7 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  void signOut() async {
+  Future<void> signOut() async {
     await auth.signOut();
-    notifyListeners();
   }
 }
