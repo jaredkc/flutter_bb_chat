@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../models/message.dart';
-import '../services/message_service.dart';
+import '../services/firestore_service.dart';
 import '../services/auth_service.dart';
 
 class MessageField extends StatefulWidget {
@@ -65,7 +65,7 @@ class _MessageFieldState extends State<MessageField> {
   }
 
   void _sendMessage() {
-    final messages = MessageService();
+    final messages = FirestoreService();
     final auth = AuthService();
 
     if (_canSendMessage()) {

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../services/message_service.dart';
 import '../models/message.dart';
 import '../services/auth_service.dart';
+import '../services/firestore_service.dart';
+import '../shared/account_details.dart';
 import 'message_field.dart';
 import 'message_widget.dart';
 
@@ -21,7 +22,7 @@ class MessageListState extends State<MessageList> {
   Widget build(BuildContext context) {
     WidgetsBinding.instance!.addPostFrameCallback((_) => _scrollToBottom());
 
-    final messages = MessageService();
+    final messages = FirestoreService();
     final auth = AuthService();
 
     return Scaffold(
@@ -45,6 +46,10 @@ class MessageListState extends State<MessageList> {
       body: SafeArea(
         child: Column(
           children: [
+            const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: AccountDetails(),
+            ),
             _getMessageList(messages),
           ],
         ),
@@ -52,7 +57,7 @@ class MessageListState extends State<MessageList> {
     );
   }
 
-  Widget _getMessageList(MessageService messages) {
+  Widget _getMessageList(FirestoreService messages) {
     return Expanded(
       child: StreamBuilder<QuerySnapshot>(
           stream: messages.streamMessages(),
