@@ -11,8 +11,8 @@ class AccountDetails extends ConsumerWidget {
     final data = ref.watch(dataProvider);
 
     return data.when(
-      data: (account) {
-        return Text(account?['displayName'] ?? 'No account');
+      data: (user) {
+        return Text(user.displayName ?? 'Users name has not been set.');
       },
       error: (error, stackTrace) => Text('$error'),
       loading: () => const Text('waiting...'),

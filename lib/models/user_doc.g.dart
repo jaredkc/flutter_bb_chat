@@ -7,9 +7,9 @@ part of 'user_doc.dart';
 // **************************************************************************
 
 UserDoc _$UserDocFromJson(Map<String, dynamic> json) => UserDoc(
-      email: json['email'] as String,
-      displayName: json['displayName'] as String? ?? '',
-      imageURL: json['imageURL'] as String? ?? '',
+      email: json['email'] as String?,
+      displayName: json['displayName'] as String?,
+      imageURL: json['imageURL'] as String?,
     );
 
 Map<String, dynamic> _$UserDocToJson(UserDoc instance) => <String, dynamic>{

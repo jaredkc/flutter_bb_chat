@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../models/message.dart';
+import '../models/user_doc.dart';
 
 class FirestoreService {
   final CollectionReference messagesRef =
@@ -14,8 +15,16 @@ class FirestoreService {
     return messagesRef.orderBy('date').limit(20).snapshots();
   }
 
-  Stream<Map?> streamUserDoc(String uid) {
+  Stream<UserDoc> streamUserDoc(String uid) {
     var docRef = FirebaseFirestore.instance.collection('users').doc(uid);
-    return docRef.snapshots().map((snapshot) => snapshot.data());
+    return docRef.snapshots().map((snapshot) {
+      if (snapshot.exists) {
+        // print('Document data: ${snapshot.data()}');
+        return UserDoc.fromJson(snapshot.data()!);
+      } else {
+        // print('Document does not exist on the database');
+        return UserDoc.fromJson({});
+      }
+    });
   }
 }

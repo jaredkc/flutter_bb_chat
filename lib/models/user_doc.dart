@@ -4,14 +4,14 @@ part 'user_doc.g.dart';
 
 @JsonSerializable()
 class UserDoc {
-  final String email;
-  final String displayName;
-  final String imageURL;
+  final String? email;
+  final String? displayName;
+  final String? imageURL;
 
   UserDoc({
     required this.email,
-    this.displayName = '',
-    this.imageURL = '',
+    required this.displayName,
+    required this.imageURL,
   });
 
   factory UserDoc.fromJson(Map<String, dynamic> json) =>
